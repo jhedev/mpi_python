@@ -1,5 +1,4 @@
 from distutils.core import setup, Extension
-from stat import ST_MODE
 
 test_mpi = Extension('testmpi', libraries = ['mpi', 'mpi_cxx'],
                      sources = ['mpi_test.cpp'],
