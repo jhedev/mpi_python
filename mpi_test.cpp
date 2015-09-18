@@ -7,11 +7,13 @@ using namespace std;
 
 static PyObject * get(PyObject *self, PyObject *args){
   int rank, nprocs;
-  int argc = 0;
+
   MPI_Init(NULL, NULL);
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
   MPI_Finalize();
+
+  Py_RETURN_NONE
 }
 
 static PyMethodDef TestmpiMethods[] = {
