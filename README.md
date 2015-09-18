@@ -69,3 +69,20 @@ Process name: [[7992,1],0]
 Exit code:    1
 --------------------------------------------------------------------------
 ```
+
+###Notes
+
+Answer from the `users@open-mpi.org` mailing list:
+
+>Short version:
+>
+>The easiest way to do this is to configure your Open MPI installation with --disable-dlopen.
+>
+>More detail:
+>
+>Open MPI uses a bunch of plugins for its functionality. When you dlopen libmpi in a private namespace (like Python does), and then libmpi tries to dlopen its plugins, the plugins can't find the symbols that they need in the main libmpi library (because they're in a private namespace).
+>The workaround is to build Open MPI with all of its plugins slurped up into the libmpi library itself (i.e., so that Open MPI doesn't have to dlopen its plugins). 
+
+See [here](http://www.open-mpi.org/community/lists/users/2015/09/27608.php).
+
+mpi4py uses [this workaround](https://bitbucket.org/mpi4py/mpi4py/src/master/src/lib-mpi/compat/openmpi.h?fileviewer=file-view-default#openmpi.h-52)).
